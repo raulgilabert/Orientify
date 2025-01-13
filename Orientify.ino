@@ -1,11 +1,24 @@
+/*
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <https://www.gnu.org/licenses/>. 
+*/
+
 #include <Wire.h>
 
 const int MPU = 0x68;
 
-// Definición de un struct para agrupar los datos del sensor
 struct SensorData {
-  int16_t AcX, AcY, AcZ;  // Acelerómetro
-  int16_t GyX, GyY, GyZ;  // Giroscopio
+  int16_t AcX, AcY, AcZ;
+  int16_t GyX, GyY, GyZ;
 };
 
 enum Pos {
@@ -25,7 +38,6 @@ SensorData getData(int address)
   Wire.endTransmission(false);
   Wire.requestFrom(address, 12, true);
 
-  // Leer y almacenar los datos en el struct
   sensorData.AcX = Wire.read() << 8 | Wire.read();
   sensorData.AcY = Wire.read() << 8 | Wire.read();
   sensorData.AcZ = Wire.read() << 8 | Wire.read();
